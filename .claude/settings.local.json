@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(timeout 3 node src/server.js)",
+      "Bash(node src/server.js)",
+      "Bash(curl -s http://localhost:3001/api/catalog)",
+      "Bash(curl -s http://localhost:3001/api/catalog/featured)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(d['id'], d['title']\\)\")",
+      "Bash(curl -s http://localhost:3001/api/catalog/genres)",
+      "Bash(python3 -c \"import sys,json; print\\(json.load\\(sys.stdin\\)[:3]\\)\")",
+      "Bash(curl -s \"http://localhost:3001/api/search?q=test\")",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(f'{len\\(d\\)} results'\\)\")",
+      "Bash(curl -s http://localhost:3001/api/catalog/night-signal)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(d['id']\\)\")",
+      "Bash(curl -s http://localhost:3001/api/catalog/night-signal/more-like-this)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(f'{len\\(d\\)} recommendations'\\)\")",
+      "Bash(kill %1)",
+      "Bash(npx tsc *)",
+      "Bash(npm run *)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\('Backend OK:', d['title']\\)\")",
+      "Bash(pkill -f \"server.js\")"
+    ]
+  }
+}

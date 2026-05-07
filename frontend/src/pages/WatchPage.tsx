@@ -1,13 +1,27 @@
-import { findSeries } from "../catalog";
+import { useState, useEffect } from "react";
+import { fetchSeries } from "../catalog";
+import type { Series } from "../types";
 
 type WatchPageProps = {
   id: string;
 };
 
 export function WatchPage({ id }: WatchPageProps) {
-  const series = findSeries(id);
+  const [series, setSeries] = useState<Series | null | undefined>(undefined);
 
-  if (!series) {
+  useEffect(() => {
+    fetchSeries(id).then(setSeries);
+  }, [id]);
+
+  if (series === undefined) {
+    return (
+      <main className="watch-shell">
+        <div className="loading">Loading…</div>
+      </main>
+    );
+  }
+
+  if (series === null) {
     return (
       <main className="watch-shell">
         <section className="not-found">

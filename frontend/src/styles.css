@@ -688,3 +688,12 @@ h2 {
     flex: 1 1 9rem;
   }
 }
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  color: #fff;
+  font-size: 1.25rem;
+}

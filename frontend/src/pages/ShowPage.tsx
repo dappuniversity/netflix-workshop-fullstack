@@ -1,16 +1,30 @@
-import { findSeries, getMoreLikeThis } from "../catalog";
+import { useState, useEffect } from "react";
+import { fetchSeries, fetchMoreLikeThis } from "../catalog";
 import { MetaLine } from "../components/MetaLine";
 import { Row } from "../components/Row";
 import { watchUrl } from "../router";
+import type { Series } from "../types";
 
 type ShowPageProps = {
   id: string;
 };
 
 export function ShowPage({ id }: ShowPageProps) {
-  const series = findSeries(id);
+  const [series, setSeries] = useState<Series | null | undefined>(undefined);
+  const [moreLikeThis, setMoreLikeThis] = useState<Series[]>([]);
 
-  if (!series) {
+  useEffect(() => {
+    fetchSeries(id).then((s) => {
+      setSeries(s);
+      if (s) fetchMoreLikeThis(id).then(setMoreLikeThis);
+    });
+  }, [id]);
+
+  if (series === undefined) {
+    return <div className="loading">Loading…</div>;
+  }
+
+  if (series === null) {
     return (
       <section className="not-found">
         <h1>Title Not Found</h1>
@@ -20,8 +34,6 @@ export function ShowPage({ id }: ShowPageProps) {
       </section>
     );
   }
-
-  const moreLikeThis = getMoreLikeThis(series);
 
   return (
     <>
